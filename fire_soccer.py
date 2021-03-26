@@ -9,7 +9,7 @@ import fire
 import requests
 
 
-# projects env variables
+# projects env variables configuration
 zeroncy.config()
 
 URL = 'https://api.api-futebol.com.br/v1/campeonatos/10'
@@ -55,7 +55,7 @@ def _get_brasileirao_classification(position: int=None) -> dict:
     """
     headers = {
         'Content-type': 'application/json',
-        'Authorization': config('FUTEBOLAPI_KEY')
+        'Authorization': zeroncy.get('FUTEBOLAPI_KEY')
     }
     data = requests.get(URL + '/tabela', headers=headers).json()
 

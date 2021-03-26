@@ -4,10 +4,13 @@ that make request in FutebolAPI to generates
 soccer championships data
 """
 
-from decouple import config
+import zeroncy
 import fire
 import requests
 
+
+# projects env variables
+zeroncy.config()
 
 URL = 'https://api.api-futebol.com.br/v1/campeonatos/10'
 
@@ -37,11 +40,11 @@ def _get_brasileirao_data(info: str = None) -> dict:
 
     headers = {
         'Content-type': 'application/json',
-        'Authorization': config('FUTEBOLAPI_KEY')
+        'Authorization': zeroncy.get('FUTEBOLAPI_KEY')
     }
     data = requests.get(URL, headers=headers).json()
 
-    return data[info] if info is not None else data
+    return data[info.lower()] if info is not None else data
 
 
 def _get_brasileirao_classification(position: int=None) -> dict:
